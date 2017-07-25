@@ -17,12 +17,20 @@ from django.db import models
 """
 
 class Category(models.Model):
+
+    """We are keeping our category's titles in that model."""
+
     title = models.CharField(max_length=50,unique=True)
 
     def __str__(self):
         return "{}".format(self.title)
 
 class Thread(models.Model):
+
+    """We are using this model for keeping threads and their variables in database and
+    we have a ForeignKey in here. One side of this relation connects to a category and
+    other side connects to threads."""
+
     title = models.CharField(max_length=50)
     category = models.ForeignKey(Category)
 
@@ -30,12 +38,25 @@ class Thread(models.Model):
         return "{}".format(self.title)
 
 class Post(models.Model):
-    content_text = models.TextField() # This is the place where we are taking post.
-    sent_date = models.DateTimeField(auto_now_add=True) # This is for sent time.
-    change_date = models.DateTimeField(auto_now=True)  # This is for change time.
-    thread = models.ForeignKey(Thread) # This is for relation of posts and threads.--uu-
-    like = models.PositiveSmallIntegerField(default=0) # This is the place where we are keeping like count.
-    is_reported = models.BooleanField(default=False) # This field for reporting stuff
+
+    """We are using this model for keeping posts and their variables in database and
+    we have a ForeignKey in here. One side of this relation connects to a thread and
+    other side connects to posts.
+
+    content_text provides our content's text. I think it explains himself enough.
+    I'm kinda bored and i really dont know what should i write here. In next commit
+    i'm gonna delete all this stuff but its a really small easter egg for later.
+
+    Gecenin bir yarısı ne yazsam harbiden bulamadım buralara. Yarın düzelteceğim umarım.
+                                                                                -g3vxy buradaydı.
+    """
+
+    content_text = models.TextField()
+    sent_date = models.DateTimeField(auto_now_add=True)
+    change_date = models.DateTimeField(auto_now=True)
+    thread = models.ForeignKey(Thread)
+    like = models.PositiveSmallIntegerField(default=0)
+    is_reported = models.BooleanField(default=False)
 
     def __str__(self):
         return "{} thread, {}. post".format(Thread.title, self.id)
