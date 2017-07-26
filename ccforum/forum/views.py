@@ -7,7 +7,7 @@ class CategoryView(ListView):
 
 class ThreadView(ListView):
     def get_queryset(self):
-        return Post.objects.filter(is_reported=False)
+        return Thread.objects.filter(is_reported=False)
 
 class PostView(DetailView):
     def get_queryset(self):
