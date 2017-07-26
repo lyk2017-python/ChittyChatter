@@ -21,7 +21,7 @@
           <a class="navbar-brand" href="#">WebSiteName</a>
             <ul class="nav navbar-nav">
                 {% for i in object_list %}
-                     <li>{{i}}</li>
+                     <li><a href="{% url "category_name" slug=i.slug %}">{{i.title}}</a></li>
                 {% endfor %}
             </ul>
         </div>
