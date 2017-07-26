@@ -5,7 +5,7 @@ from forum.models import Category, Thread, Post
 class CategoryView(ListView):
     model = Category
 
-class ThreadView(ListView):
+class ThreadView(DetailView):
     def get_queryset(self):
         return Thread.objects.filter(is_reported=False)
 
