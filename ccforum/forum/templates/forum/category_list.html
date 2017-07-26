@@ -5,6 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-
+<h1>Bu bir forum!</h1>
+<ul>
+{% for i in object_list %}
+    <li>{{i}}</li>
+{% endfor %}
+</ul>
 </body>
 </html>
