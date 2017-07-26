@@ -5,10 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-<h1>Bu bir forum!</h1>
+<h1>Categories<h1>
 <ul>
 {% for i in object_list %}
-    <li>{{i}}</li>
+    <li><a href="{% url "category_name" slug=i.slug %}">{{i.title}}</a></li>
 {% endfor %}
 </ul>
 </body>

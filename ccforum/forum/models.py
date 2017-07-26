@@ -21,6 +21,7 @@ class Category(models.Model):
     """We are keeping our category's titles in that model."""
 
     title = models.CharField(max_length=50,unique=True)
+    slug = models.SlugField(null=True)
 
     def __str__(self):
         return "{}".format(self.title)
