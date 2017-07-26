@@ -33,6 +33,7 @@ class Thread(models.Model):
 
     title = models.CharField(max_length=50)
     category = models.ForeignKey(Category)
+    is_reported = models.BooleanField(default=False)
 
     def __str__(self):
         return "{}".format(self.title)
