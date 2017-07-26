@@ -1,10 +1,35 @@
+{% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>This a test app</title>
+    <!-- This is the place where we are importing minimized bootstrap css. -->
+    <link rel="stylesheet" href="{% static 'forum/css/bs.css' %}">
+    <link rel="stylesheet" href="{% static 'forum/css/style.css' %}">
 </head>
-<body>
-PostTest
+<body id="body-override">
+    <div class="container-fluid">
+        <div class="jumbotron text-center" id="jumbotron-override">
+            <h1>Welcome to registration page!</h1>
+        </div>
+    </div>
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">WebSiteName</a>
+            <ul class="nav navbar-nav">
+                {% for i in object_list %}
+                     <li>{{i}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+      </div>
+    </nav>
+    <div class="container">
+
+    </div>
 </body>
 </html>
