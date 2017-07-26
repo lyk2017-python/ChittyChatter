@@ -19,5 +19,5 @@ from forum.urls import urlpatterns as forum_urls
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^/', include(forum_urls)),
+    url(r'^', include(forum_urls)),
 ]
