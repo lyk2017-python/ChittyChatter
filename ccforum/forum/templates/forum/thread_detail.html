@@ -12,13 +12,13 @@
 <body id="body-override">
     <div class="container-fluid">
         <div class="jumbotron text-center" id="jumbotron-override">
-            <h1>Welcome to registration page!</h1>
+            <h1>Welcome to '{{ object.title|lower }}' thread!</h1>
         </div>
     </div>
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">WebSiteName</a>
+          <a class="navbar-brand" href="{% url "home" %}">MotherRussiaPage</a>
             <ul class="nav navbar-nav">
                 {% for i in object_list %}
                      <li><a href="{% url "category_name" slug=i.slug %}">{{i.title}}</a></li>
@@ -29,7 +29,9 @@
       </div>
     </nav>
     <div class="container">
-
+        {% for i in object_list %}
+            <li><a href="{% url "thread_name" slug=i.slug %}">{{i.title}}</a></li>
+        {% endfor %}
     </div>
 </body>
 </html>

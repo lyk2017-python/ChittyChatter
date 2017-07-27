@@ -16,3 +16,9 @@
 .label-override{
 	/*color: #e8f5e9;*/
 }
+
+#h1override{
+    text-align: center;
+    color: #8c8c8c;
+    border-bottom: solid 1px;
+}

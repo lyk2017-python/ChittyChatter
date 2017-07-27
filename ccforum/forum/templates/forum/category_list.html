@@ -12,13 +12,13 @@
 <body id="body-override">
     <div class="container-fluid">
         <div class="jumbotron text-center" id="jumbotron-override">
-            <h1>Welcome to registration page!</h1>
+            <h1>Welcome to main page!</h1>
         </div>
     </div>
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">WebSiteName</a>
+          <a class="navbar-brand" href="{% url "home" %}">MotherRussiaPage</a>
             <ul class="nav navbar-nav">
                 {% for i in object_list %}
                      <li><a href="{% url "category_name" slug=i.slug %}">{{i.title}}</a></li>
@@ -29,7 +29,9 @@
       </div>
     </nav>
     <div class="container">
-
+        <h1 id="h1override">Welcome to the Kiremithane!</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec maximus elit. Curabitur eget ultricies nisl, eu blandit arcu. Ut pellentesque elementum lectus id dignissim. Duis consequat iaculis ornare. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sagittis vel leo vel vehicula. Nullam sit amet dolor eget sem posuere auctor. Aenean tincidunt rutrum aliquam. Nulla nisi metus, laoreet eu venenatis eu, egestas eu lorem. Etiam suscipit auctor nisl, tincidunt imperdiet lectus commodo vel</p>
+        <p>Proin tempus metus egestas, ultricies est vel, molestie nibh. Aliquam et nisi at turpis imperdiet molestie a dapibus libero. Donec gravida lacus in rutrum maximus. Suspendisse id rhoncus sapien. Mauris ipsum eros, condimentum vel est quis, lacinia efficitur diam. Cras pharetra et quam ut lacinia. Donec sed rhoncus purus. Quisque sollicitudin sollicitudin tincidunt. Suspendisse in magna augue. Aenean eget metus nulla. Donec nulla dui, rhoncus quis nunc tincidunt, condimentum fermentum nunc. Etiam quis rhoncus ipsum. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
     </div>
 </body>
 </html>
