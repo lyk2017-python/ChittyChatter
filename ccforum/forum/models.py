@@ -66,4 +66,4 @@ class Post(models.Model):
     is_reported = models.BooleanField(default=False)
 
     def __str__(self):
-        return "{} thread, {}. post".format(self.thread.title, self.id)
+        return "{} thread, post id = {}".format(self.thread.title, self.id)
