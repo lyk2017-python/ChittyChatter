@@ -12,6 +12,7 @@ class CategoryDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context["thread"] = Thread.objects.all()
         return context
+
 class ThreadView(DetailView):
     model = Thread
 
