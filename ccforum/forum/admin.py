@@ -1,11 +1,11 @@
 from django.contrib import admin
 from forum.models import Category, Thread, Post
 
-class ThreadInline(admin.StackedInline):
+class ThreadInline(admin.TabularInline):
     model = Thread
     extra = 0
 
-class PostInline(admin.StackedInline):
+class PostInline(admin.TabularInline):
     model = Post
     extra = 0
 
