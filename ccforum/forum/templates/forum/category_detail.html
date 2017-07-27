@@ -22,17 +22,15 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand page-scroll" href="{%  url "home" %}">ChittyChatter!</a>
+                <a class="navbar-brand page-scroll" href="{%  url "home" %}" style="font-size:150%">ChittyChatter!</a>
             </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav navbar-right">
                     <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
                     <li class="hidden">
                         <a class="page-scroll" href="#page-top"></a>
                     </li>
-                    {% for cats in object_list %}
+                    {% for cats in category %}
                         <li>
                             <a class="page-scroll" href="{% url "category_name" slug=cats.slug%}">{{cats.title}}</a>
                         </li>
@@ -44,13 +42,20 @@
         <!-- /.container -->
     </nav>
     <div class="container" style="margin-top: 92px">
+    <h2>{{ object }}</h2>
+      <div class="list-group">
         <ul class="list-group">
         {% for i in thread %}
             {% if i.category.id == object.id %}
-                <li class="list-group-item"><a href="{% url "thread_name" slug=i.slug pk=i.pk %}">{{i.title}} <span class="badge">0</span></a></li>
+                <li class="list-group-item">
+                    <a href="{% url "thread_name" slug=i.slug pk=i.pk %}" class="list-group-item">
+                      <h4 class="list-group-item-heading">{{i.title}}</h4>
+                    </a>
+                </li>
             {% endif %}
         {% endfor %}
         </ul>
+      </div>
     </div>
     <!-- jQuery -->
     <script src="{% static 'forum/js/jquery.js' %}"></script>
