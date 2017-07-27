@@ -43,3 +43,6 @@ class PostAdmin(admin.ModelAdmin):
         },
     )
 ]
+
+
+
