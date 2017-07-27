@@ -31,7 +31,9 @@
     <div class="container">
         <ul class="list-group">
         {% for i in thread %}
-            <li class="list-group-item"><a href="{% url "thread_name" slug=i.slug pk=i.pk %}">{{i.title}} <span class="badge">0</span></a></li>
+            {% if i.category.id == object.id %}
+                <li class="list-group-item"><a href="{% url "thread_name" slug=i.slug pk=i.pk %}">{{i.title}} <span class="badge">0</span></a></li>
+            {% endif %}
         {% endfor %}
         </ul>
     </div>

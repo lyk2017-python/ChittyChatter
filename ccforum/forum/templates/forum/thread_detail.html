@@ -20,7 +20,7 @@
         <div class="navbar-header">
           <a class="navbar-brand" href="{% url "home" %}">MotherRussiaPage</a>
             <ul class="nav navbar-nav">
-                {% for i in object_list %}
+                {% for i in category %}
                      <li><a href="{% url "category_name" slug=i.slug %}">{{i.title}}</a></li>
                 {% endfor %}
             </ul>
@@ -29,9 +29,13 @@
       </div>
     </nav>
     <div class="container">
-        {% for i in object_list %}
-            <li><a href="{% url "thread_name" slug=i.slug %}">{{i.title}}</a></li>
+        <ul class="list-group">
+        {% for i in post %}
+            {% if i.thread.id == object.id %}
+                <li class="list-group-item">{{ i.content_text }}</li>
+            {% endif %}
         {% endfor %}
+        </ul>
     </div>
 </body>
 </html>
