@@ -26,6 +26,10 @@ class Category(models.Model):
     def __str__(self):
         return "{}".format(self.title)
 
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+
 class Thread(models.Model):
 
     """We are using this model for keeping threads and their variables in database and
@@ -62,4 +66,4 @@ class Post(models.Model):
     is_reported = models.BooleanField(default=False)
 
     def __str__(self):
-        return "{} thread, {}. post".format(Thread.id, self.id)
+        return "{} thread, {}. post".format(self.thread.title, self.id)

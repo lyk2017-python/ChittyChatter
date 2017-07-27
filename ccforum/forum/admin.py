@@ -1,3 +1,14 @@
 from django.contrib import admin
+from forum.models import Category, Thread, Post
 
-# Register your models here.
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Thread)
+class ThreadAdmin(admin.ModelAdmin):
+    pass
+
+@admin.register(Post)
+class PostAdmin(admin.ModelAdmin):
+    pass
