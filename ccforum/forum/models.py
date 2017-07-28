@@ -1,4 +1,7 @@
 from django.db import models
+from django.dispatch import receiver
+from django.db.models.signals import pre_save
+from django.template.defaultfilters import slugify
 
 """
  ________________________
@@ -21,14 +24,10 @@ class Category(models.Model):
     """We are keeping our category's titles in that model."""
 
     title = models.CharField(max_length=50,unique=True)
-    slug = models.SlugField(null=True)
+    slug = models.SlugField(null=True,unique=True)
 
     def __str__(self):
         return "{}".format(self.title)
-
-    class Meta:
-        verbose_name = 'Category'
-        verbose_name_plural = 'Categories'
 
 class Thread(models.Model):
 
@@ -39,7 +38,7 @@ class Thread(models.Model):
     title = models.CharField(max_length=50)
     category = models.ForeignKey(Category)
     is_reported = models.BooleanField(default=False)
-    slug = models.SlugField(null=True)
+    slug = models.SlugField(null=True,unique=True)
 
     def __str__(self):
         return "{}".format(self.title)
@@ -66,4 +65,14 @@ class Post(models.Model):
     is_reported = models.BooleanField(default=False)
 
     def __str__(self):
-        return "{} thread, post id = {}".format(self.thread.title, self.id)
+        return "{} thread, post id = {}".format(Thread.id, self.id)
+
+@receiver(pre_save, sender=Thread)
+@receiver(pre_save, sender=Post)
+def slugifier(sender, instance,*args, **kwargs):
+    if hasattr(sender, "title"):
+        instance.slug = slugify(instance.title)
+
+    else:
+        raise AttributeError("Slug Error")
+    return instance
