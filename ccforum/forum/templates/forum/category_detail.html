@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>This a test app</title>
+    <title>{{ object.title }} | ChittyChatter!</title>
     <!-- This is the place where we are importing minimized bootstrap css. -->
     <link rel="stylesheet" href="{% static 'forum/css/bs.css' %}">
     <link rel="stylesheet" href="{% static 'forum/css/scrolling-nav.css' %}">
@@ -42,17 +42,24 @@
         <!-- /.container -->
     </nav>
     <div class="container" style="margin-top: 92px">
-    <h2>{{ object }}</h2>
+    <h2>
+        <a href="{% url "category_name" slug=object.slug%}">{{object}}</a>
+    </h2>
       <div class="list-group">
         <ul class="list-group">
-        {% for i in thread %}
-            {% if i.category.id == object.id %}
-                <li class="list-group-item">
-                    <a href="{% url "thread_name" slug=i.slug pk=i.pk %}" class="list-group-item">
-                      <h4 class="list-group-item-heading">{{i.title}}</h4>
-                    </a>
-                </li>
-            {% endif %}
+        {% for i in object.thread_set.all %}
+            <li class="list-group-item">
+            {% for post in latest_posts %}
+                {% if post.thread.id == i.id %}
+                    {{ post.sent_date }}
+                {% endif %}
+            {% endfor %}
+                <a href="{% url "thread_name" slug=i.slug pk=i.pk %}">
+                    <h3 class="list-group-item-heading text-right">
+                        {{i.title}}
+                    </h3>
+                </a>
+            </li>
         {% endfor %}
         </ul>
       </div>
