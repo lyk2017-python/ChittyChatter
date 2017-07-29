@@ -42,14 +42,13 @@
     <div class="container" style="margin-top: 92px">
         <ul class="list-group">
 
-        {% for i in thread %}
-            <li class="list-group-item">{{i.title}} <span class="badge">0</span></li>
+        {% for i in posts %}
+            <li class="list-group-item">{{i.content_text}} <span class="badge">0</span></li>
         {% endfor %}
         </ul>
         <form action="." method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-
             <button type="submit">Save</button>
         </form>
     </div>

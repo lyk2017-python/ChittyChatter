@@ -68,7 +68,6 @@ class Post(models.Model):
         return "{} thread, post id = {}".format(Thread.id, self.id)
 
 @receiver(pre_save, sender=Thread)
-@receiver(pre_save, sender=Post)
 def slugifier(sender, instance,*args, **kwargs):
     if hasattr(sender, "title"):
         instance.slug = slugify(instance.title)

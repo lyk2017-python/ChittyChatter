@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import HiddenInput
-from forum.models import Post
+from forum.models import Post, Thread
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -8,7 +8,6 @@ class PostForm(forms.ModelForm):
         exclude = ["id",
                    "like",
                    "is_reported",
-                   "thread",
                    ]
-
+        widgets = {"thread": forms.HiddenInput()}
 
