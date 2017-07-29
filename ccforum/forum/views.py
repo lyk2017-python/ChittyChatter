@@ -46,3 +46,4 @@ class ThreadView(generic.CreateView):
         context["posts"] = context["object"].post_set.all()
 
         return context
+
