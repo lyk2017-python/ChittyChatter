@@ -24,10 +24,14 @@ class Category(models.Model):
     """We are keeping our category's titles in that model."""
 
     title = models.CharField(max_length=50,unique=True)
-    slug = models.SlugField(null=True,unique=True)
+    slug = models.SlugField(null=True,unique=True,blank=True)
 
     def __str__(self):
         return "{}".format(self.title)
+
+    class Meta:
+        verbose_name = "Category"
+        verbose_name_plural = "Categories"
 
 class Thread(models.Model):
 
@@ -38,7 +42,7 @@ class Thread(models.Model):
     title = models.CharField(max_length=50)
     category = models.ForeignKey(Category)
     is_reported = models.BooleanField(default=False)
-    slug = models.SlugField(null=True,unique=True)
+    slug = models.SlugField(null=True,unique=True,blank=True)
 
     def __str__(self):
         return "{}".format(self.title)
@@ -63,11 +67,14 @@ class Post(models.Model):
     thread = models.ForeignKey(Thread)
     like = models.PositiveSmallIntegerField(default=0)
     is_reported = models.BooleanField(default=False)
+    username = models.CharField(max_length=15,null=False)
+
 
     def __str__(self):
         return "{} thread, post id = {}".format(Thread.id, self.id)
 
 @receiver(pre_save, sender=Thread)
+@receiver(pre_save, sender=Category)
 def slugifier(sender, instance,*args, **kwargs):
     if hasattr(sender, "title"):
         instance.slug = slugify(instance.title)

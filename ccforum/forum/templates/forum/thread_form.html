@@ -43,7 +43,7 @@
         <ul class="list-group">
 
         {% for i in posts %}
-            <li class="list-group-item">{{i.content_text}} <span class="badge">0</span></li>
+            <li class="list-group-item">{{i.content_text}} <span class="badge">{{i.username}}</span></li>
         {% endfor %}
         </ul>
         <form action="." method="POST">
