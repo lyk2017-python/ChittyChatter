@@ -3,6 +3,7 @@ from django.db.models import TextField
 from django.forms import HiddenInput, Textarea, TextInput
 from forum.models import Post, Thread
 
+
 class PostForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(PostForm, self).__init__(*args, **kwargs)
@@ -15,3 +16,9 @@ class PostForm(forms.ModelForm):
                    "is_reported",
                    ]
         widgets = {"thread": forms.HiddenInput()}
+
+
+class ContactForm(forms.Form):
+    email = forms.EmailField()
+    title = forms.CharField()
+    body = forms.CharField(widget=forms.Textarea(attrs={"rows": 3}))

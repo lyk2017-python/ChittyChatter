@@ -1,17 +1,6 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="tr">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>This a test app</title>
-    <!-- This is the place where we are importing minimized bootstrap css. -->
-    <link rel="stylesheet" href="{% static 'forum/css/bs.css' %}">
-    <link rel="stylesheet" href="{% static 'forum/css/scrolling-nav.css' %}">
-    <link rel="stylesheet" href="{% static 'forum/css/style.css' %}">
-</head>
-<body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+{% extends 'forum/theme.html' %}
+
+{% block body %}
 <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
@@ -55,14 +44,4 @@
             <button type="submit">Save</button>
         </form>
     </div>
-    <!-- jQuery -->
-    <script src="{% static 'forum/js/jquery.js' %}"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="{% static 'forum/js/bootstrap.min.js' %}"></script>
-
-    <!-- Scrolling Nav JavaScript -->
-    <script src="{% static 'forum/js/jquery.easing.min.js' %}"></script>
-    <script src="{% static 'forum/js/scrolling-nav.js' %}"></script>
-</body>
-</html>
+{% endblock %}

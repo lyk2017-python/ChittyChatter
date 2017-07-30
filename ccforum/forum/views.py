@@ -1,3 +1,4 @@
+from django.core.mail import send_mail
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView
 from forum.models import Category, Thread, Post
@@ -15,10 +16,10 @@ class CategoryDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["category"] = Category.objects.all()
-        #latest_posts = []
-        #for i in context["object"].thread_set.all():
-       #     latest_posts.append(i.post_set.latest("sent_date"))
-      #  context['latest_posts'] = latest_posts
+        # latest_posts = []
+        # for i in context["object"].thread_set.all():
+        #     latest_posts.append(i.post_set.latest("sent_date"))
+        #  context['latest_posts'] = latest_posts
         return context
 
 
@@ -57,3 +58,23 @@ class ThreadView(generic.CreateView):
 
         return context
 
+
+class ContactFormView(generic.FormView):
+    form_class = ContactForm
+    template_name = "forum/contact.html"
+    success_url = "/"
+
+    def form_valid(self, form):
+        data = form.cleaned_data
+        from django.conf import settings
+        send_mail(
+            "CcForum ContactForm : {}".format(data["title"]),
+            ("Bildiriminiz var!\n"
+             "---\n"
+             "{}\n"
+             "---\n"
+             "eposta={}\n"
+             "ip={}").format(data["body"], data["email"], self.request.META["REMOTE_ADDR"]),
+            settings.DEFAULT_FROM_EMAIL,
+            ["noreply@ccforum.com"])
+        return super().form_valid(form)

@@ -1,0 +1,9 @@
+{% extends 'forum/theme.html' %}
+{% block body %}
+
+<form action="." method="POST">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type ="submit">Save</button>
+</form>
+{% endblock %}
