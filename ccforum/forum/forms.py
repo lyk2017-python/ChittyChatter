@@ -15,8 +15,3 @@ class PostForm(forms.ModelForm):
                    "is_reported",
                    ]
         widgets = {"thread": forms.HiddenInput()}
-
-
-
-
-
