@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView
 from forum.models import Category, Thread, Post
-from forum.forms import PostForm
+from forum.forms import *
 from django.views import generic
 
 
@@ -20,6 +20,15 @@ class CategoryDetailView(DetailView):
             latest_posts.append(i.post_set.latest("sent_date"))
         context['latest_posts'] = latest_posts
         return context
+
+class ThreadCreateView(CreateView):
+    model = Thread
+    success_url = "."
+    fields = [
+        "title",
+    ]
+    template_name = "forum/thread_create"
+
 
 
 class ThreadView(generic.CreateView):
