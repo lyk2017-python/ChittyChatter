@@ -1,4 +1,4 @@
-#jumbotron-override{
+#jumbotron-override {
     background-color:#388E3C;
     color:#F5F5F5;
     margin-bottom: 4px;
@@ -9,10 +9,6 @@
     color: #0B7F3F;
 }
 
-#body-override{
-	background-color: ;
-}
-
 .label-override{
 	/*color: #e8f5e9;*/
 }
@@ -21,4 +17,8 @@
     text-align: center;
     color: #8c8c8c;
     border-bottom: solid 1px;
+}
+
+body {
+    padding-top: 70px;
 }
