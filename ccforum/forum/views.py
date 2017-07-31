@@ -4,11 +4,12 @@ from django.views.generic import ListView, DetailView, CreateView
 from forum.models import Category, Thread, Post
 from forum.forms import *
 from django.views import generic
+from django.conf import settings
+from django.core.mail import send_mail
 
 
 class CategoryView(ListView):
     model = Category
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -69,9 +70,9 @@ class ContactFormView(generic.FormView):
     template_name = "forum/contact.html"
     success_url = "/"
 
+
     def form_valid(self, form):
         data = form.cleaned_data
-        from django.conf import settings
         send_mail(
             "CcForum ContactForm : {}".format(data["title"]),
             ("Bildiriminiz var!\n"

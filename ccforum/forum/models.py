@@ -75,6 +75,7 @@ class Post(models.Model):
 
 @receiver(pre_save, sender=Thread)
 @receiver(pre_save, sender=Category)
+
 def slugifier(sender, instance,*args, **kwargs):
     if hasattr(sender, "title"):
         instance.slug = slugify(instance.title)
