@@ -36,14 +36,12 @@
                             <a class="page-scroll" href="{% url "category_name" slug=cats.slug%}">{{cats.title}}</a>
                         </li>
                     {% endfor %}
+
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
-        </div>
         <!-- /.container -->
-    </nav>
-    <div class="container">
-
+    <div>
 <hr>
 <br>
 <br>
@@ -51,6 +49,18 @@
 İletişim için <a href= "{%url "contact" %}">tıklayınız</a>
 
     </div>
+
+    <div class="container" style="margin-top: 92px">
+        <ul class="list-group">
+
+        {% for i in threads %}
+            <li class="list-group-item">{{i.title}}
+                <span class="badge">{{i.likes}}</span>
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+    </nav>
 </body>
 </html>
 

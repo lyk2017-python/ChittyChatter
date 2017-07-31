@@ -43,6 +43,7 @@ class Thread(models.Model):
     category = models.ForeignKey(Category)
     is_reported = models.BooleanField(default=False)
     slug = models.SlugField(null=True,unique=True,blank=True)
+    likes = models.PositiveSmallIntegerField(default=0)
 
     def __str__(self):
         return "{}".format(self.title)
@@ -68,7 +69,6 @@ class Post(models.Model):
     like = models.PositiveSmallIntegerField(default=0)
     is_reported = models.BooleanField(default=False)
     username = models.CharField(max_length=15,null=False)
-
 
     def __str__(self):
         return "{} thread, post id = {}".format(Thread.id, self.id)

@@ -10,6 +10,11 @@ class CategoryView(ListView):
     model = Category
 
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["threads"] = Thread.objects.order_by("-likes")
+        return context
+
 class CategoryDetailView(DetailView):
     model = Category
 
