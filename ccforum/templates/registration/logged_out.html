@@ -10,7 +10,8 @@
             <div class="col-md-6 col-md-offset-3 card-bg text-center">
                 <form action="." method="POST">
                     {% csrf_token %}
-                    <input type="hidden" name="next" value="{{ next }}">
+                    <input type="hidden" name="next" value="/">
+                    <button class="btn btn-default" type="submit">Logout</button>
                 </form>
             </div>
         </div>
