@@ -27,6 +27,17 @@
                     <li class="hidden">
                         <a class="page-scroll" href="#page-top"></a>
                     </li>
+                    <li class="button">
+                        {% if request.user.is_authenticated %}
+                        <form action="{% url "logout" &}" method="POST">
+                        login
+                        {% csrf_token %}
+                        <input type="hidden" value="/" name="text">
+                        {% else %}
+                        logout
+                        <a href="{url "login" %}">tıklayın</a>
+                        {% endif %}
+                    </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories <span class="caret"></span></a>
                         <ul class="dropdown-menu">

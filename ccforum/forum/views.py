@@ -1,5 +1,8 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView, CreateView
 from forum.models import Category, Thread, Post
 from forum.forms import *
@@ -7,6 +10,9 @@ from django.views import generic
 from django.conf import settings
 from django.core.mail import send_mail
 
+
+class LoginCreateView(LoginRequiredMixin,generic.CreateView):
+    pass
 
 class CategoryView(ListView):
     model = Category
@@ -29,15 +35,13 @@ class CategoryDetailView(DetailView):
         return context
 
 
-class ThreadCreateView(CreateView):
+class ThreadCreateView(LoginCreateView):
     model = Thread
     success_url = "/"
-    fields = [
-        "title",
-        "id",
-        "category",
-        "is_reported",
-    ]
+
+    @method_decorator(login_required)
+    def post(self, request, *a, **kw):
+        return super().post(request, *a, **kw)
 
 
 class ThreadView(generic.CreateView):
@@ -69,7 +73,6 @@ class ContactFormView(generic.FormView):
     form_class = ContactForm
     template_name = "forum/contact.html"
     success_url = "/"
-
 
     def form_valid(self, form):
         data = form.cleaned_data
