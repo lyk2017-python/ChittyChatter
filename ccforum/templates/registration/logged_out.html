@@ -1,10 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "forum/theme.html" %}
 
-</body>
-</html>
+{% block title %}Logout{% endblock %}
+
+{% load bootstrap3 %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 card-bg text-center">
+                <form action="." method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ next }}">
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock%}
