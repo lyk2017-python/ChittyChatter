@@ -41,7 +41,7 @@ class CategoryDetailView(DetailView):
 """
 
 
-class ThreadCreateView(FormView):
+class ThreadCreateView(LoginRequiredMixin, FormView):
     form_class = ThreadCreateForm
     success_url = "/"
     template_name = "forum/thread_create.html"
@@ -71,6 +71,10 @@ class ThreadView(generic.CreateView):
     form_class = PostForm
     template_name = "forum/thread_form.html"
     success_url = "."
+
+    @method_decorator(login_required)
+    def post(self, request, *a, **kw):
+        return super().post(request, *a, **kw)
 
     def get_thread(self):
         thread = Thread.objects.get(slug=self.kwargs["tslug"])

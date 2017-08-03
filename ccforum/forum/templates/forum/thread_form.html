@@ -12,17 +12,21 @@
                         <span class="badge">{{i.like}}</span>
                         <div>
                             <span id="like_{{ object.id }}">{{object.like}}</span>
+                            {% if request.user.is_authenticated %}
                             <button class="btn btn-xs glyphicon glyphicon-thumbs-up" onclick="like(true, {{ i.id }})">Like</button>
                             <button class="btn btn-xs glyphicon glyphicon-thumbs-false" onclick="like(false, {{ i.id }})">Dislike</button>
+                            {% endif %}
                         </div>
                     </li>
                     {% endfor %}
                 </ul>
+                {% if request.user.is_authenticated %}
                 <form action="." method="POST">
                     {% csrf_token %}
                     {{ form.as_p }}
                     <button type="button" class=".btn-danger">Save</button>
                 </form>
+                {% endif %}
             </div>
         </div>
     </div>
