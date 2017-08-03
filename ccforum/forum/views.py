@@ -4,15 +4,14 @@ from django.core.mail import send_mail
 from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, TemplateView, FormView
 from forum.models import Category, Thread, Post
 from forum.forms import *
 from django.views import generic
 from django.conf import settings
 from django.core.mail import send_mail
+from django.urls import reverse
 
-
-class LoginCreateView(LoginRequiredMixin,generic.CreateView):
-    pass
 
 class CategoryView(ListView):
     model = Category
@@ -35,14 +34,18 @@ class CategoryDetailView(DetailView):
         return context
 
 
-class ThreadCreateView(LoginCreateView):
-    model = Thread
+class ThreadCreateView(FormView):
+    form_class = ThreadCreateForm
     success_url = "/"
+    template_name = "forum/thread_create.html"
 
     @method_decorator(login_required)
     def post(self, request, *a, **kw):
         return super().post(request, *a, **kw)
 
+    def form_valid(self, form):
+        self.object = form.save()
+        return super().form_valid(form)
 
 class ThreadView(generic.CreateView):
     form_class = PostForm
@@ -74,6 +77,7 @@ class ContactFormView(generic.FormView):
     template_name = "forum/contact.html"
     success_url = "/"
 
+
     def form_valid(self, form):
         data = form.cleaned_data
         send_mail(
@@ -87,3 +91,7 @@ class ContactFormView(generic.FormView):
             settings.DEFAULT_FROM_EMAIL,
             ["noreply@ccforum.com"])
         return super().form_valid(form)
+
+
+class RulesView(TemplateView):
+    template_name = "forum/rules.html"

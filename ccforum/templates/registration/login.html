@@ -8,11 +8,12 @@
                 <form action="/" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="next" value="{{ next }}">
-                    {{ form|bootstrap }}
+
                     <button type="submit" class="btn btn-info" value="Submit Button">Login</button>
                 </form>
             </div>
         </div>
 </div>
-</html>
+
+{% endblock %}
 

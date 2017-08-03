@@ -1,7 +1,8 @@
 from django import forms
 from django.db.models import TextField
 from django.forms import HiddenInput, Textarea, TextInput
-from forum.models import Post, Thread
+from forum.models import Post, Thread, Category
+from django.db import transaction
 
 
 class PostForm(forms.ModelForm):
@@ -22,3 +23,15 @@ class ContactForm(forms.Form):
     email = forms.EmailField()
     title = forms.CharField()
     body = forms.CharField(widget=forms.Textarea(attrs={"rows": 3}))
+
+class ThreadCreateForm(forms.Form):
+    category = forms.ModelChoiceField(Category.objects.all())
+    title = forms.CharField()
+    content_text = forms.CharField(widget=forms.Textarea(attrs={"rows": 3}))
+
+    def save(self):
+        with transaction.atomic():
+            thread = Thread.objects.create(title=self.cleaned_data["title"], category=self.cleaned_data["category"])
+            Post.objects.create(thread=thread, content_text=self.cleaned_data["content_text"])
+        return thread
+
