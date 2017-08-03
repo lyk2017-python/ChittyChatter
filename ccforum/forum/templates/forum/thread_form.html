@@ -12,8 +12,8 @@
                         <span class="badge">{{i.like}}</span>
                         <div>
                             <span id="like_{{ object.id }}">{{object.like}}</span>
-                            <button class="btn btn-xs glyphicon glyphicon-thumbs-up" onclick="like(true, {{ object.id }})">Like</button>
-                            <button class="btn btn-xs glyphicon glyphicon-thumbs-false" onclick="like(false, {{ object.id }})">Dislike</button>
+                            <button class="btn btn-xs glyphicon glyphicon-thumbs-up" onclick="like(true, {{ i.id }})">Like</button>
+                            <button class="btn btn-xs glyphicon glyphicon-thumbs-false" onclick="like(false, {{ i.id }})">Dislike</button>
                         </div>
                     </li>
                     {% endfor %}

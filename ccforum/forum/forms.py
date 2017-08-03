@@ -17,6 +17,7 @@ class PostForm(forms.ModelForm):
                    ]
         widgets = {"thread": forms.HiddenInput(),
                    "like": forms.HiddenInput(),
+                   "username": forms.HiddenInput(),
                    }
 
 
@@ -40,4 +41,6 @@ class ThreadCreateForm(forms.Form):
         with transaction.atomic():
             thread = Thread.objects.create(title=self.cleaned_data["title"], category=self.cleaned_data["category"])
             Post.objects.create(thread=thread, content_text=self.cleaned_data["content_text"])
+
         return thread
+

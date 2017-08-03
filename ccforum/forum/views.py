@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import F
 from django.shortcuts import render, get_object_or_404
 from django.utils.decorators import method_decorator
@@ -80,6 +81,7 @@ class ThreadView(generic.CreateView):
         if self.request.method in ['POST', 'PUT']:
             post_data = kwargs["data"].copy()
             post_data["thread"] = self.get_thread().id
+            post_data["username"] = self.request.user.username
             kwargs["data"] = post_data
         return kwargs
 
@@ -87,7 +89,6 @@ class ThreadView(generic.CreateView):
         context = super().get_context_data(**kwargs)
         context["object"] = self.get_thread()
         context["posts"] = context["object"].post_set.all()
-
         return context
 
 
@@ -120,11 +121,11 @@ def like(request):
     like = request.POST.get("like")
     obj = get_object_or_404(Post, id=int(id))
     if like == "true":
-        obj.score = F("like") + 1
-        obj.save(update_fields=["like"])
+        obj.like = F("like") + 1
+        obj.save()
     elif like == "false":
-        obj.score = F("like") - 1
-        obj.save(update_fields=["like"])
+        obj.like = F("like") - 1
+        obj.save()
     else:
         return HttpResponse(status=400)
     obj.refresh_from_db()
