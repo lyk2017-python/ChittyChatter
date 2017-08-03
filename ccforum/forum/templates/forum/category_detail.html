@@ -3,7 +3,7 @@
 {% block body %}
     <div class="container">
     <h2>
-        <a href="{% url "category_name" slug=object.slug%}">{{object}}</a>
+        <a href="{% url "category_name" cslug=object.slug%}">{{object}}</a>
     </h2>
       <div class="list-group">
         <ul class="list-group">
@@ -14,7 +14,7 @@
                     {{ post.sent_date }}
                 {% endif %}
             {% endfor %}
-                <a href="{% url "thread_name" slug=i.slug pk=i.pk %}">
+                <a href="{% url "thread_name" tslug=i.slug cslug=object.slug pk=i.pk %}">
                     <h3 class="list-group-item-heading text-right">
                         {{i.title}}
                     </h3>
@@ -22,7 +22,7 @@
             </li>
         {% endfor %}
 
-            <a href="{% url "thread_create" %}">Create a Thread
+            <a href="{% url "thread_create"  cslug=object.slug %}">Create a Thread
 
             </a>
         </ul>

@@ -1,16 +1,13 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.core.mail import send_mail
-from django.shortcuts import render
+from django.db.models import F
+from django.shortcuts import render, get_object_or_404
 from django.utils.decorators import method_decorator
-from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic import ListView, DetailView, CreateView, TemplateView, FormView
-from forum.models import Category, Thread, Post
 from forum.forms import *
 from django.views import generic
 from django.conf import settings
 from django.core.mail import send_mail
-from django.urls import reverse
+from django.http import Http404, HttpResponse, JsonResponse
 
 
 class CategoryView(ListView):
@@ -23,6 +20,7 @@ class CategoryView(ListView):
 
 class CategoryDetailView(DetailView):
     model = Category
+    slug_url_kwarg = "cslug"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -34,18 +32,34 @@ class CategoryDetailView(DetailView):
         return context
 
 
+"""    @method_decorator(login_required)
+    def post(self, request, *a, **kw):
+        return super().post(request, *a, **kw)
+"""
+
 class ThreadCreateView(FormView):
     form_class = ThreadCreateForm
     success_url = "/"
     template_name = "forum/thread_create.html"
 
-    @method_decorator(login_required)
-    def post(self, request, *a, **kw):
-        return super().post(request, *a, **kw)
-
     def form_valid(self, form):
         self.object = form.save()
         return super().form_valid(form)
+
+    def get_category(self):
+        query = Category.objects.filter(slug=self.kwargs["cslug"])
+        if query.exists():
+            return query.get()
+        else:
+            raise Http404("Category not found")
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        if self.request.method in ["POST", "PUT"]:
+            post_data = kwargs["data"].copy()
+            post_data["category"] = self.get_category().id
+            kwargs["data"] = post_data
+        return kwargs
 
 class ThreadView(generic.CreateView):
     form_class = PostForm
@@ -53,7 +67,7 @@ class ThreadView(generic.CreateView):
     success_url = "."
 
     def get_thread(self):
-        thread = Thread.objects.get(slug=self.kwargs["slug"])
+        thread = Thread.objects.get(slug=self.kwargs["tslug"])
         return thread
 
     def get_form_kwargs(self):
@@ -95,3 +109,19 @@ class ContactFormView(generic.FormView):
 
 class RulesView(TemplateView):
     template_name = "forum/rules.html"
+
+
+def like(request):
+    id = request.POST.get("id", default=None)
+    like = request.POST.get("like")
+    obj = get_object_or_404(Post, id=int(id))
+    if like == "true":
+        obj.score = F("like") + 1
+        obj.save(update_fields=["like"])
+    elif like == "false":
+        obj.score = F("like") - 1
+        obj.save(update_fields=["like"])
+    else:
+        return HttpResponse(status=400)
+    obj.refresh_from_db()
+    return JsonResponse({"like": obj.like, "id": id})

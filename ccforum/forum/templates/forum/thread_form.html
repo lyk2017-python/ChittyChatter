@@ -9,6 +9,12 @@
                     <li class="list-group-item">{{i.content_text}}
                         <span class="badge">{{i.sent_date}}</span>
                         <span class="badge">{{i.username}}</span>
+                        <span class="badge">{{i.like}}</span>
+                        <div>
+                            <span id="like_{{ object.id }}">{{object.like}}</span>
+                            <button class="btn btn-xs glyphicon glyphicon-thumbs-up" onclick="like(true, {{ object.id }})">Like</button>
+                            <button class="btn btn-xs glyphicon glyphicon-thumbs-false" onclick="like(false, {{ object.id }})">Dislike</button>
+                        </div>
                     </li>
                     {% endfor %}
                 </ul>
@@ -20,4 +26,21 @@
             </div>
         </div>
     </div>
+
+<script>
+    function like(param, id) {
+        $.post(
+            "{% url "like_dislike" %}",
+            {
+                "like": param,
+                "id": id,
+                "csrfmiddlewaretoken": getCookie('csrftoken')
+            },
+            function (data) {
+                $("#like_" + data.id).text(data.like)
+            },
+            "json"
+        )
+    }
+</script>
 {% endblock %}

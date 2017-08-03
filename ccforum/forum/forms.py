@@ -13,10 +13,11 @@ class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         exclude = ["id",
-                   "like",
                    "is_reported",
                    ]
-        widgets = {"thread": forms.HiddenInput()}
+        widgets = {"thread": forms.HiddenInput(),
+                   "like": forms.HiddenInput(),
+                   }
 
 
 class ContactForm(forms.Form):
@@ -25,10 +26,9 @@ class ContactForm(forms.Form):
     body = forms.CharField(widget=forms.Textarea(attrs={"rows": 3}))
 
 class ThreadCreateForm(forms.Form):
-    category = forms.ModelChoiceField(Category.objects.all())
     title = forms.CharField()
     content_text = forms.CharField(widget=forms.Textarea(attrs={"rows": 3}))
-
+    category = forms.ModelChoiceField(queryset=Category.objects.all(), widget=forms.HiddenInput())
     def save(self):
         with transaction.atomic():
             thread = Thread.objects.create(title=self.cleaned_data["title"], category=self.cleaned_data["category"])

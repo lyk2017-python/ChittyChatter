@@ -29,7 +29,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Categories <span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             {% for cats in categories %}
-                            <li><a class="page-scroll" href="{% url "category_name" slug=cats.slug%}">{{cats.title}}</a></li>
+                            <li><a class="page-scroll" href="{% url "category_name" cslug=cats.slug%}">{{cats.title}}</a></li>
                             {% endfor %}
                         </ul>
                     </li>
@@ -64,4 +64,6 @@
 <script src="{% static 'forum/js/jquery.easing.min.css' %}"></script>
 <script src="{% static 'forum/js/scrolling-nav.js' %}"></script>
 <script src="{% static 'forum/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'forum/js/main.js' %}"></script>
+
 </html>
