@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'forum',
+    'bootstrap3',
 ]
 
 MIDDLEWARE = [
@@ -100,8 +101,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-""" AUTH_USER_MODEL = "blog.User" """
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
@@ -126,4 +125,8 @@ EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR,"emails")
 DEFAULT_FROM_EMAIL = "noreply@ccforum.com"
 LOGIN_REDIRECT_URL = "/"
+
+BOOTSTRAP3 = {
+    'css_url': "/static/forum/css/simplex.css",
+}
 

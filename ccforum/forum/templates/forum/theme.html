@@ -50,7 +50,7 @@
                         {% csrf_token %}
                         <input type="hidden" value="/" name="text">
                         {% else %}
-                        <a href="{url "login" %}">Login</a>
+                        <a href="{% url "login" %}">Login</a>
                         {% endif %}
                     </li>
                 </ul>
