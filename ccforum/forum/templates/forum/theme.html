@@ -44,6 +44,12 @@
                     <li class="button">
                         <a href= "{%url "rules" %}">Rules</a>
                     </li>
+                    {% if not request.user.is_authenticated %}
+                    <li class="button">
+                        <a href= "{%url "register" %}">Register</a>
+                    </li>
+                    {% endif %}
+
 
                     <li class="button">
                         {% if request.user.is_authenticated %}

@@ -7,7 +7,8 @@ from forum.forms import *
 from django.views import generic
 from django.conf import settings
 from django.core.mail import send_mail
-from django.http import Http404, HttpResponse, JsonResponse
+from django.http import Http404, HttpResponse, JsonResponse, HttpResponseRedirect
+from django.contrib.auth.forms import UserCreationForm
 
 
 class CategoryView(ListView):
@@ -17,6 +18,7 @@ class CategoryView(ListView):
         context = super().get_context_data(**kwargs)
         context["threads"] = Thread.objects.order_by("-likes")
         return context
+
 
 class CategoryDetailView(DetailView):
     model = Category
@@ -37,10 +39,12 @@ class CategoryDetailView(DetailView):
         return super().post(request, *a, **kw)
 """
 
+
 class ThreadCreateView(FormView):
     form_class = ThreadCreateForm
     success_url = "/"
     template_name = "forum/thread_create.html"
+
 
     def form_valid(self, form):
         self.object = form.save()
@@ -60,6 +64,7 @@ class ThreadCreateView(FormView):
             post_data["category"] = self.get_category().id
             kwargs["data"] = post_data
         return kwargs
+
 
 class ThreadView(generic.CreateView):
     form_class = PostForm
@@ -90,7 +95,6 @@ class ContactFormView(generic.FormView):
     form_class = ContactForm
     template_name = "forum/contact.html"
     success_url = "/"
-
 
     def form_valid(self, form):
         data = form.cleaned_data
@@ -125,3 +129,13 @@ def like(request):
         return HttpResponse(status=400)
     obj.refresh_from_db()
     return JsonResponse({"like": obj.like, "id": id})
+
+
+class RegistrationView(generic.FormView):
+    form_class = CustomUserCreationForm
+    template_name = "forum/signup.html"
+    success_url = "/"
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)

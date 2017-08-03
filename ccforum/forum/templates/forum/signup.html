@@ -1,0 +1,19 @@
+{% extends 'forum/theme.html' %}
+{% load bootstrap3 %}
+
+{% block body %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3 card-bg text-center">
+               <body>
+               <form action="" method="post">
+                   {% csrf_token %}
+                   {% bootstrap_form form %}
+                   <button type="submit">Signup</button>
+               </form>
+               </body>
+            </div>
+        </div>
+    </div>
+{% endblock%}
