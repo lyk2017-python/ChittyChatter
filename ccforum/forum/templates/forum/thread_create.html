@@ -4,12 +4,6 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                {{object.name}}
-                <ul>
-                    {%for obj in object.shortnews_set.all %}
-                    <li><a href="{%url "news_detail" pk=obj.id%}">{{obj.title}}</a></li>
-                    {%endfor%}
-                </ul>
                 {% if request.user.is_authenticated %}
                 <hr>
                 <form action="." method="POST">

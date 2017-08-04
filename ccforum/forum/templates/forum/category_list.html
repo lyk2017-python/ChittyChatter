@@ -9,9 +9,7 @@
                 <h1>Threads</h1>
                 <ul class="list-group text-center">
                     {% for i in threads %}
-                    <li class="list-group-item">{{i.title}}
-                        <span class="badge">{{i.likes}}</span>
-                    </li>
+                    <li class="list-group-item">{{i.title}}</li>
                     {% endfor %}
                 </ul>
                 <div>İletişim için <a href= "{%url "contact" %}">tıklayınız</a></div>
